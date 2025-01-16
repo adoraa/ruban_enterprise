@@ -1,3 +1,4 @@
+import DashboardCharts from '@/components/server/DashboardCharts'
 import Heading from '@/components/server/Heading'
 import LargeCards from '@/components/server/LargeCards'
 import SmallCards from '@/components/server/SmallCards'
@@ -13,6 +14,7 @@ export default function page() {
       <Heading title="Order Status" />
       <SmallCards/>
       {/* Charts */}
+      <DashboardCharts/>
       {/* Recent orders table */}
     </div>
   )
