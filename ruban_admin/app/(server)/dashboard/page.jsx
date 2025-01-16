@@ -10,6 +10,7 @@ export default function page() {
       {/* Large cards */}
       <LargeCards/>
       {/* Small cards */}
+      <Heading title="Order Status" />
       <SmallCards/>
       {/* Charts */}
       {/* Recent orders table */}

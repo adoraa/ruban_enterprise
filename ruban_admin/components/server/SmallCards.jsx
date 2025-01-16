@@ -1,33 +1,38 @@
 import React from 'react'
 import SmallCard from './SmallCard'
+import { CheckCheck, CircleEllipsis, ShoppingCart, Truck } from 'lucide-react'
 
 export default function SmallCards() {
-    const orderStats = [
+    const orderStatus = [
         {
-        title: "Today's Orders",
-        amount: 150000,
-        color: "bg-green-600"
+        title: "Total Orders",
+        amount: 1500,
+        iconColor: "bg-blue-600",
+        icon: ShoppingCart
     },{
-        title: "Yesterday's Orders",
-        amount: 250000,
-        color: "bg-orange-600"
+        title: "Pending",
+        amount: 25,
+        iconColor: "bg-yellow-500",
+        icon: CircleEllipsis
     },{
-        title: "This Month",
-        amount: 4500000,
-        color: "bg-yellow-500"
+        title: "Processing",
+        amount: 50,
+        iconColor: "bg-orange-500",
+        icon: Truck
     },{
-        title: "All-Time",
-        amount: 450000,
-        color: "bg-red-600"
+        title: "Delivered",
+        amount: 450,
+        iconColor: "bg-green-600",
+        icon: CheckCheck
     }
 ]
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 py-8'>
         {/* Cards */}
         {
-            orderStats.map((item,i)=>{
+            orderStatus.map((data, i)=>{
                 return(
-                    <SmallCard className="bg-green-600" data={item} key={i} />
+                    <SmallCard className="bg-green-600" data={data} key={i} />
                 )
             })
         }
