@@ -1,30 +1,70 @@
 "use client";
 import React, { useState } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
 
 export default function WeeklySalesChart() {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Chart.js Line Chart",
+      },
+    },
+  };
+
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+
   const data = {
-    labels: ["Tomatoes", "Maize", "Green Pepper", "Orange"],
+    labels,
     datasets: [
       {
-        label: "# sold",
-        data: [12, 3, 5, 3],
-        backgroundColor: [
-          "rgba(255, 0, 0, 0.5)",
-          "rgba(255, 240, 0, 0.7)",
-          "rgba(0, 255, 0, 0.4)",
-          "rgba(255, 127, 0, 0.7)",
-        ],
-        borderColor: [
-          "rgba(255, 255, 255, 1)",
-          "rgba(255, 255, 255, 1)",
-          "rgba(255, 255, 255, 1)",
-          "rgba(255, 255, 255, 1)",
-        ],
-        borderWidth: 1,
+        label: "Dataset 1",
+        data: labels.map(() =>
+          faker.helpers.rangeToNumber({min: 10, max: 50})
+        ),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Dataset 2",
+        data: labels.map(() =>
+          faker.helpers.rangeToNumber({min: 10, max: 50})
+        ),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
@@ -40,7 +80,7 @@ export default function WeeklySalesChart() {
     },
   ];
 
-  const [chartToDisplay, setChartToDisplay] = useState("sales");
+  const [chartToDisplay, setChartToDisplay] = useState(tabs[0].type);
 
   return (
     <div className="bg-slate-700 p-8 rounded-lg">
@@ -53,7 +93,8 @@ export default function WeeklySalesChart() {
             {tabs.map((tab, i) => {
               return (
                 <li className="me-2" key={i}>
-                  <button onClick={() => setChartToDisplay(tab.type)}
+                  <button
+                    onClick={() => setChartToDisplay(tab.type)}
                     className={
                       chartToDisplay == tab.type
                         ? "inline-block p-4 text-orange-600 border-b-2 border-orange-600 rounded-t-lg active dark:text-orange-500 dark:border-orange-500"
@@ -68,7 +109,13 @@ export default function WeeklySalesChart() {
           </ul>
         </div>
 
-        {/* Content */}
+        {/* Chart content */}
+        {tabs.map((tab, i) => {
+          if (chartToDisplay === tab.type) {
+            return <Line options={options} data={data} />;
+          }
+          return null;
+        })}
       </div>
     </div>
   );
