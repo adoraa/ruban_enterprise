@@ -31,7 +31,7 @@ export default function WeeklySalesChart() {
         position: "top",
       },
       title: {
-        display: true,
+        display: false,
         text: "Chart.js Line Chart",
       },
     },
@@ -51,20 +51,12 @@ export default function WeeklySalesChart() {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Sales",
         data: labels.map(() =>
-          faker.helpers.rangeToNumber({min: 10, max: 50})
+          faker.number.int({min: -50, max: 50})
         ),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: labels.map(() =>
-          faker.helpers.rangeToNumber({min: 10, max: 50})
-        ),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
@@ -73,10 +65,36 @@ export default function WeeklySalesChart() {
     {
       title: "Sales",
       type: "sales",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Sales",
+            data: labels.map(() =>
+              faker.number.int({min: -50, max: 50})
+            ),
+            borderColor: "rgb(255, 127, 0, 0.4)",
+            backgroundColor: "rgba(255, 137, 0, 0.6)",
+          },
+        ],
+      }
     },
     {
       title: "Orders",
       type: "orders",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Orders",
+            data: labels.map(() =>
+              faker.number.int({min: -50, max: 50})
+            ),
+            borderColor: "rgb(255, 127, 0, 0.4)",
+            backgroundColor: "rgba(255, 137, 0, 0.6)",
+          },
+        ],
+      }
     },
   ];
 
@@ -112,7 +130,7 @@ export default function WeeklySalesChart() {
         {/* Chart content */}
         {tabs.map((tab, i) => {
           if (chartToDisplay === tab.type) {
-            return <Line options={options} data={data} />;
+            return <Line options={options} data={tab.data} />;
           }
           return null;
         })}
