@@ -1,3 +1,4 @@
+import CustomDataTable from '@/components/server/CustomDataTable'
 import DashboardCharts from '@/components/server/DashboardCharts'
 import Heading from '@/components/server/Heading'
 import LargeCards from '@/components/server/LargeCards'
@@ -16,6 +17,7 @@ export default function page() {
       {/* Charts */}
       <DashboardCharts/>
       {/* Recent orders table */}
+      <CustomDataTable/>
     </div>
   )
 }
